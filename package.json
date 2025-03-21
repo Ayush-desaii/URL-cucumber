@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "cucumber-js tests/features/",
+    "test:coverage": "npx nyc --require=@babel/register --reporter=html --reporter=text npm test"
   },
   "author": "",
   "license": "ISC",
@@ -18,11 +19,24 @@
     "nanoid": "^5.1.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/register": "^7.25.9",
     "@cucumber/cucumber": "^11.2.0",
     "axios": "^1.8.4",
     "chai": "^5.2.0",
     "mocha": "^11.1.0",
     "nodemon": "^3.1.9",
+    "nyc": "^17.1.0",
     "supertest": "^7.1.0"
-  }
+  },
+  "nyc": {
+  "all": true,
+  "include": ["controllers/*.js", "routes/*.js"],
+  "exclude": ["tests", "node_modules"],
+  "reporter": ["text", "html"],
+  "require": ["@babel/register"],
+  "instrument": true
+}
+
 }

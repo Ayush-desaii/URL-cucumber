@@ -1,0 +1,9 @@
+{
+  "all": true,
+  "include": ["controllers/*.js", "routes/*.js"],
+  "exclude": ["tests", "node_modules"],
+  "reporter": ["text", "html"],
+  "require": ["@babel/register"],
+  "extension": [".js"],
+  "instrument": true
+}

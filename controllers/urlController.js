@@ -6,6 +6,8 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
 // ✅ Shorten a URL
 export const createShortUrl = async (req, res) => {
     const { url, expiry } = req.body;
+
+    console.log(".....cont........")
     
     if (!url) return res.status(400).json({ error: "URL is required" });
 
@@ -20,6 +22,9 @@ export const createShortUrl = async (req, res) => {
 // ✅ Redirect to the original URL
 export const redirectUrl = async (req, res) => {
     const { shortId } = req.params;
+
+    console.log(".....cont........")
+
     
     const shortUrl = await Url.findOne({ shortId });
 
@@ -38,6 +43,9 @@ export const redirectUrl = async (req, res) => {
 // ✅ Get URL statistics
 export const getStats = async (req, res) => {
     const { shortId } = req.params;
+
+    console.log(".....cont........")
+
 
     const shortUrl = await Url.findOne({ shortId });
     if (!shortUrl) return res.status(404).json({ error: "Short URL not found" });

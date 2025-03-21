@@ -1,7 +1,8 @@
 import { Given, When, Then } from '@cucumber/cucumber';
 import request from 'supertest';
 import { expect } from 'chai';
-import app from '../../app.js';  // Adjust if your Express app is exported from app.js
+import app from '../../app.js';
+import { createShortUrl, redirectUrl, getStats } from '../../controllers/urlController.js';
 
 let response;
 let shortUrl;
@@ -45,4 +46,20 @@ When('I request statistics for the short URL', async function () {
 Then('I should receive the stats with click count', function () {
     expect(response.status).to.equal(200);
     expect(response.body).to.have.property('clicks');
+});
+
+describe('URL Controller', () => {
+    it('should create a short URL', async () => {
+      const req = { body: { url: 'https://example.com' } };
+      const res = {
+        status: function(code) { this.statusCode = code; return this; },
+        json: function(data) { this.body = data; return this; }
+      };
+      
+      await createShortUrl(req, res);
+      
+      expect(res.statusCode).to.equal(200);
+      expect(res.body).to.have.property('shortUrl');
+    });
+
 });
